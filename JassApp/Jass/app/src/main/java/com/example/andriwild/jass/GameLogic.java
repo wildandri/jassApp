@@ -1,5 +1,7 @@
 package com.example.andriwild.jass;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -111,7 +113,11 @@ public class GameLogic {
                     playerHighest=i;
                 }
             }
+            if(true){
+                Log.d("Daniel","Andri");
+            }
         }
+
 
 
     }
