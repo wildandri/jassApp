@@ -3,4 +3,8 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="spinner1_promt">Player 1</string>
+    <string name="spinner2_promt">Player 2</string>
+    <string name="spinner3_prompt">Player 3</string>
+    <string name="spinner4_prompt">Player 4</string>
 </resources>
