@@ -14,9 +14,15 @@
 
     <Spinner
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner5"
+        android:layout_weight="0.10" />
+
+    <Spinner
+        android:layout_width="match_parent"
         android:layout_height="74dp"
         android:id="@+id/spinner"
-        android:layout_weight="0.31"
+        android:layout_weight="0.10"
         android:prompt="@string/spinner1_promt" />
 
     <Spinner

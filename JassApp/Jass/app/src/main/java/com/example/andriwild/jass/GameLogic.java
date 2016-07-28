@@ -11,19 +11,20 @@ import java.util.Random;
 public class GameLogic {
     ArrayList<Card> cards;
     Player a,b,c,d;
-    int gameID;
+    private int gameID;
+    private int roundNumber;
+
     public GameLogic(){
         a=new Player("a");
         b=new Player("b");
         c=new Player("c");
         d=new Player("d");
         gameID = 0;
+        roundNumber=0;
         cards=new ArrayList<Card>();
-        int m=0;
         for(int i=0;i<4;i++){
             for (int j=0;j<9;j++){
-                cards.add(new Card(j,i,m));
-                m++;
+                cards.add(new Card(j,i,j));
             }
         }
     }
@@ -63,23 +64,27 @@ public class GameLogic {
         this.d.setNumbers(d);
     }
 
-    public void gamePlay (int gameID,int [] cardNumbers){
+    public void gamePlay (int [] cardNumbers){
         switch (gameID){
-            case 0:
+            case 0: compare(0, cardNumbers);
                 break;
-            case 1:
+            case 1: compare(1, cardNumbers);
                 break;
-            case 2:
+            case 2: compare(2, cardNumbers);
                 break;
-            case 3:
+            case 3: compare(3, cardNumbers);
                 break;
-            case 4:
+            case 4: compare(4, cardNumbers);//oben
                 break;
-            case 5:
+            case 5:compare(5, cardNumbers);//unten
                 break;
-            case 6:
+            case 6:compare(6, cardNumbers);
+                gameID=7;
+                setValue();
                 break;
-            case 7:
+            case 7:compare(7, cardNumbers);
+                resetValue();
+                gameID=6;
                 break;
         }
     }
@@ -88,23 +93,30 @@ public class GameLogic {
         int idHighest=0;
         int playerHighest=0;
         int iteration=0;
-        if(gameID<4){
-        for(int i:cardNumbers){
-            if(cards.get(i).getColor()==gameID){
-                if(cards.get(i).getValue()>highest){
-                    highest=cards.get(i).getValue();
-                    idHighest=i;
-                    playerHighest=iteration;
+        if(gameID<4) {
+            for (int i : cardNumbers) {
+                if (cards.get(i).getColor() == gameID) {
+                    if (cards.get(i).getValue() > highest) {
+                        Log.d("current highest", ""+cards.get(i).getValue());
+                        highest = cards.get(i).getValue();
+                        idHighest = i;
+                        playerHighest = iteration;
+                    }
                 }
+                iteration++;
             }
-            iteration++;
+            if (highest > -1) {
+                Log.d("id Highest",Integer.toString(idHighest));
+                Log.d("Highest color",Integer.toString(cards.get(idHighest).getColor()));
+                Log.d("Highest ID",Integer.toString(cards.get(idHighest).getId()));
+                return;
+            }
         }
-        if(highest>-1){
-            return;
-        }
-        }
+
         int firstColor=cards.get(cardNumbers[0]).getColor();
         highest=cards.get(cardNumbers[0]).getValue();
+        Log.d("First highest",""+highest);
+        idHighest=cardNumbers[0];
         for(int i=1;i<cardNumbers.length;i++){
             if(cards.get(cardNumbers[i]).getColor()==firstColor){
                 if(cards.get(cardNumbers[i]).getValue()>highest){
@@ -113,18 +125,50 @@ public class GameLogic {
                     playerHighest=i;
                 }
             }
-            if(true){
-                Log.d("Daniel","Andri");
-            }
         }
-
-
+        Log.d("id Highest",Integer.toString(idHighest));
+        Log.d("Highest color",Integer.toString(cards.get(idHighest).getColor()));
+        Log.d("Highest ID",Integer.toString(cards.get(idHighest).getId()));
+        return;
 
     }
     public void setValue(){
-
+        if(gameID<4){
+            cards.get(gameID * 9 + 5).setValue(10);
+            cards.get(gameID * 9 + 3).setValue(9);
+            Log.d("Value Bauer", ""+cards.get(gameID*9+5).getValue());
+        }
+        if(gameID==5 || gameID == 7){
+            for(int i=0;i<4;i++){
+                int value=8;
+                for (int j=0;j<9;j++){
+                    cards.get(i*9+j).setValue(value);
+                    value--;
+                }
+            }
+        }
+    }
+    public void resetValue(){
+       for(int i=0;i<4;i++){
+           for (int j=0;j<9;j++){
+               cards.get(i*9+j).setValue(j);
+                }
+            }
+    }
+    public int getGameID() {
+        return gameID;
     }
 
+    public void setGameID(int gameID) {
+        this.gameID = gameID;
+    }
+    public int getRoundNumber() {
+        return roundNumber;
+    }
+
+    public void setRoundNumber(int roundNumber) {
+        this.roundNumber = roundNumber;
+    }
 
 
 }
