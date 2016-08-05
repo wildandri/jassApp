@@ -6,12 +6,15 @@ import android.util.Log;
  * Created by Andri Wild on 25.07.2016.
  */
 public class Player {
-    public int id;
-    public String name;
 
+    private int id;
+    public String name;
+    private int points=0;
     public int[] numbers;
-    public Player (String name){
+
+    public Player (String name,int id){
         this.name=name;
+        this.id=id;
     }
 
     public int[] getNumbers() {
@@ -23,6 +26,20 @@ public class Player {
         for (int i:this.numbers){
             Log.d(name, "" + i);
         }
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+    public void increasePoints(int points){
+        this.points+=points;
+    }
+    public void setPoints(int points) {
+        this.points = points;
     }
 
 }

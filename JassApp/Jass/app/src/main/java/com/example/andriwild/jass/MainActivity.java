@@ -42,4 +42,8 @@ public class MainActivity extends Activity {
         Intent i = new Intent(this, GameActivity.class);
         startActivity(i);
     }
+    public void gui(View v){
+        Intent i = new Intent(this, PlayerActivity.class);
+        startActivity(i);
+    }
 }
